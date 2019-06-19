@@ -64,9 +64,9 @@ public class UserContorller {
 	   * @param 
 	   * @param 
 	   */
-	  @RequestMapping(value="/personSignInPage")
+	  @RequestMapping(value="/userSignInPage")
 	  public String personSignInPage() {
 		  
-		  return "personLogin";
+		  return "userLogin";
 	  }
 }
