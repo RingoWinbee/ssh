@@ -6,6 +6,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.ringo.ssh.dao.BaseTestCaseJunit44;
 import com.ringo.ssh.entity.User;
+import com.ringo.ssh.exception.MyException;
 
 public class UserServiceTest extends BaseTestCaseJunit44 {
 	
@@ -24,4 +25,14 @@ public class UserServiceTest extends BaseTestCaseJunit44 {
 		userService.updateUser(u);
 	}
 
+	@Test
+	public void testCheckSignIn() {
+		try {
+			if(userService.checkSignIn("13922924658@163.com", "10419")==1)
+				System.out.println("存在此用户");
+		} catch (MyException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+	}
 }

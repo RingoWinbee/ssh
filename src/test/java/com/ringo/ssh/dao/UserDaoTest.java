@@ -8,10 +8,12 @@ import com.ringo.ssh.entity.User;
 
 public class UserDaoTest extends BaseTestCaseJunit44{
 
-	@Resource
-	private UserDao userDao;
+	//@Autowired
+	@Resource(name="UserDao")
+	private IUserDao userDao;	
 	
 	@Test
+	@Rollback(false)
 	public void testSave() {
 		User u=new User();
 		u.setUserName("Ringo");
@@ -36,7 +38,7 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testDelete() {
-		userDao.delete(2);
+		userDao.delete(3);
 	}
 	
 	@Test

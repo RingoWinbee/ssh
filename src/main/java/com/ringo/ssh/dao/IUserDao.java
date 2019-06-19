@@ -13,4 +13,5 @@ public interface IUserDao {
 	public void update(User user);
 	public void delete(int userId);
 	//查询
+	public User getPersonByEmail(String email);
 }
