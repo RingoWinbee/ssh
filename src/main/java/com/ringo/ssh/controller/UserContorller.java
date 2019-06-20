@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ringo.ssh.exception.MyException;
 import com.ringo.ssh.service.IUserService;
+import com.ringo.util.CreatRandCode;
+import com.ringo.util.SendMail;
 
 @Controller
 @RequestMapping("/user")
@@ -21,6 +23,13 @@ public class UserContorller {
 	
 	/**
 	   * ajax请求不需要返回页面，只需要得到response中的数据即可，所以方法签名为void即可
+	   * 检测用户登陆情况
+	   * 
+	   * 0
+	   * 
+	   * 
+	   * 
+	   * 
 	   * 
 	   * @param request
 	   * @param response 
@@ -68,5 +77,47 @@ public class UserContorller {
 	  public String personSignInPage() {
 		  
 		  return "userLogin";
+	  }
+	  
+	  /**
+	   * 
+	   * 用于用户注册
+	   * @param request
+	   * @param response
+	   */
+	  @RequestMapping(value="/userRegister",method = RequestMethod.POST)
+	  public void userRegister(HttpServletRequest request, HttpServletResponse response) {
+		 String email=request.getParameter("email");
+		 String password=request.getParameter("password");
+		 String address=request.getParameter("address");
+		 String phone=request.getParameter("phone");
+		 String realName=request.getParameter("realName");
+		 String activationCode=request.getParameter("activationCode");
+		 
+	  }
+	  
+	  
+	  
+	  /**
+	   * 
+	   * 用于向用户邮箱发送6位验证码
+	   * @param request
+	   * @param response
+	 * @throws IOException 
+	   */
+	  @RequestMapping(value="/sendUserEmailCode",method = RequestMethod.POST)
+	  public void sendUserEmailCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 String email=request.getParameter("email");
+		 //构造6位随机验证码
+		 String activationCode=new CreatRandCode().creatCode();
+		 System.out.println("验证码："+	activationCode);
+		 //将该六位验证码发送到用户邮箱
+		 try {
+			new SendMail(email,activationCode).toSendMail();
+			renderData(response,"邮箱验证码已发送");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			renderData(response,e.getMessage());
+		}
 	  }
 }
