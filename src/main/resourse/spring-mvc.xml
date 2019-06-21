@@ -22,12 +22,19 @@
 
 	<!-- 访问静态资源 -->
 	<mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
-
+	<mvc:resources mapping="/upload/**" location="/WEB-INF/upload/"/>
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>		<!--请求的编码格式-->
+        <property name="maxUploadSize" value="102400000"></property>	<!--文件最大大小(字节) 1024*1024*50=50M-->
+        <property name="resolveLazily" value="true"/>			<!--resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常-->
+        <property name="uploadTempDir" value="upload"></property>		<!--指定上传文件的临时文件夹，请在项目中创建好目录。-->
+    </bean>
 	
 </beans>

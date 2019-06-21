@@ -44,4 +44,15 @@ public class UserService implements IUserService{
 		else
 		return 1;
 	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public boolean isHasUser(String email){
+		// TODO Auto-generated method stub
+		User u=(User)userDao.getPersonByEmail(email);
+		if(u!=null)
+			return true;
+		else
+			return false;
+	}
 }

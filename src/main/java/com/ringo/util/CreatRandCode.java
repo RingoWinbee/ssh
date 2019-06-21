@@ -6,8 +6,8 @@ public class CreatRandCode {
 	/*
 	程序实现的是打印出6位验证码有字符有数字交替出现
 	*/
-	 static String  result = "";
-	 static String  result2= "";
+	 String  result = "";
+	 String  result2= "";
 	public String creatCode()
 	{
 	  for(int i = 1;i <=6; i++)                  //6次执行输出6个不同字符
