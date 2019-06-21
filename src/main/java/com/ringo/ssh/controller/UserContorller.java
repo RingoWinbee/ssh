@@ -11,22 +11,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ringo.ssh.entity.User;
 import com.ringo.ssh.exception.MyException;
 import com.ringo.ssh.service.IUserService;
 import com.ringo.util.CreatRandCode;
+import com.ringo.util.FileUpload;
 import com.ringo.util.SendMail;
 
 @Controller
 @RequestMapping("/user")
 public class UserContorller {
-	
+
 	@Resource(name = "UserService")
 	private IUserService userService;
-	
+
 	private String code;
-	
+
 	/**
 	 * ajax请求不需要返回页面，只需要得到response中的数据即可，所以方法签名为void即可 检测用户登陆情况
 	 * 
@@ -99,12 +102,12 @@ public class UserContorller {
 		String userName = request.getParameter("userName");
 		String activationCode = request.getParameter("activationCode");
 		if (!userService.isHasUser(email)) {
-			//HttpSession session = request.getSession();
-			//String code=(String)session.getAttribute("activationCode");
+			// HttpSession session = request.getSession();
+			// String code=(String)session.getAttribute("activationCode");
 			if (!code.equals(activationCode))
 				renderData(response, "验证码不匹配！");
 			else {
-				User u=new User();
+				User u = new User();
 				u.setEmail(email);
 				u.setPassword(password);
 				u.setUserName(userName);
@@ -112,11 +115,10 @@ public class UserContorller {
 				userService.saveUser(u);
 				renderData(response, "注册成功！");
 			}
-				
-		}
-		else
+
+		} else
 			renderData(response, "该邮箱已已被注册！");
-}
+	}
 
 	/**
 	 * 
@@ -140,10 +142,43 @@ public class UserContorller {
 //			session.setMaxInactiveInterval(3600);//3600秒，注意服务器端的3600秒，而不是客户端的
 //			session.setAttribute("activationCode", activationCode);
 //			System.out.println("第二次输出"+(String)session.getAttribute("activationCode"));
-			code=activationCode;
+			code = activationCode;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			renderData(response, e.getMessage());
 		}
+	}
+
+	/**
+	 * 
+	 * 用于给用户上传图片
+	 * 
+	 * @param HttpServletRequest req
+	 * @param HttpServletResponse response
+	 * @throws Exception 
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
+	public void imageUpload(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		MultipartHttpServletRequest mreq = (MultipartHttpServletRequest)request;
+		MultipartFile file = mreq.getFile("file");
+		String frontName=request.getSession().getServletContext().getRealPath("/")+
+                "WEB-INF/upload/";
+		System.out.println(frontName);
+		FileUpload f=new FileUpload();
+		String fileName=f.imageUpload(file, frontName);
+		renderData(response,fileName);
+	}
+	
+	/**
+	 * 用于跳转到上传图片页面.jsp页面
+	 * 
+	 * @param
+	 * @param
+	 */
+	@RequestMapping(value = "/userUploadPage")
+	public String userSignInPage() {
+
+		return "imageUpload";
 	}
 }

@@ -40,14 +40,14 @@
 		<!-- 拦截所有的请求 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 加载spring配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:beans.xml</param-value>
 	</context-param>
 	<listener>
-         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-	
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
 </web-app>
