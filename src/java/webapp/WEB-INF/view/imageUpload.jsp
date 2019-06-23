@@ -35,7 +35,7 @@
 			    	        
 		    	           //在这我们可以获取到后台来的路径进行回显
 		    	           $("#userHead").attr("src",$("#userHead").attr("src")+"upload/"+data);
-		    	        }
+		    	        },
 		    	    });
 		});
 	});

@@ -245,8 +245,7 @@ public class UserContorller {
 
 	@RequestMapping(value="/updateUserMessage",method = RequestMethod.POST)
 	public void updateUserMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User u = new User();
-		u.setUserId((int) request.getSession().getAttribute("userId"));
+		User u = userService.getUserByUserId((int) request.getSession().getAttribute("userId"));
 		u.setAddress((String) request.getParameter("address"));
 		u.setPhone((String) request.getParameter("phone"));
 		u.setRealName((String) request.getParameter("realName"));
