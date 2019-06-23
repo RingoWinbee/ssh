@@ -247,11 +247,11 @@ public class UserContorller {
 	public void updateUserMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		User u = new User();
 		u.setUserId((int) request.getSession().getAttribute("userId"));
-		u.setAddress((String) request.getSession().getAttribute("address"));
-		u.setPhone((String) request.getSession().getAttribute("phone"));
-		u.setRealName((String) request.getSession().getAttribute("realName"));
-		u.setUserName((String) request.getSession().getAttribute("userName"));
-		u.setHeadPhoto((String) request.getSession().getAttribute("headPhoto"));
+		u.setAddress((String) request.getParameter("address"));
+		u.setPhone((String) request.getParameter("phone"));
+		u.setRealName((String) request.getParameter("realName"));
+		u.setUserName((String) request.getParameter("userName"));
+		u.setHeadPhoto((String) request.getParameter("headPhoto"));
 		userService.updateUser(u);
 		renderData(response, "修改成功");
 	}
