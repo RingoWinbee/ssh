@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>ssh</display-name>
+
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
 	<!-- 统一编码 解决中文乱码问题 -->
 	<filter>
 		<filter-name>charsetEncoding</filter-name>

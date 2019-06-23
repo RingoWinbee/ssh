@@ -9,4 +9,5 @@ public interface IUserService {
 	public void deleteUser(int userId);
 	public int checkSignIn(String email,String password)throws MyException;
 	public boolean isHasUser(String email);
+	public User getUserByUserId(int userId);
 }

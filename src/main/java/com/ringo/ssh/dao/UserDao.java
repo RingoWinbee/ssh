@@ -41,11 +41,23 @@ public class UserDao implements IUserDao {
 	 * 根据UserName来查找用户
 	 * 
 	 * @param String userName
-	 * @return Person
+	 * @return User
 	 */
 	public User getPersonByEmail(String email) {
 		//HQL语句也可以写成from User u where email =?
 		return (User) sessionFactory.getCurrentSession().createQuery("from User where email =?")
 				.setParameter(0, email).uniqueResult();
+	}
+	
+	/**
+	 * 根据userId来查找用户
+	 * 
+	 * @param String userName
+	 * @return User
+	 */
+	public User getPersonByUserId(int userId) {
+		//HQL语句也可以写成from User u where email =?
+		return (User) sessionFactory.getCurrentSession().createQuery("from User where userId =?")
+				.setParameter(0, userId).uniqueResult();
 	}
 }

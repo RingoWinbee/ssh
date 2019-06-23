@@ -33,6 +33,13 @@ public class UserService implements IUserService{
 	}
 
 	@Override
+	@Transactional
+	public User getUserByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return userDao.getPersonByUserId(userId);
+	}
+	
+	@Override
 	@Transactional(readOnly=true)
 	public int checkSignIn(String email,String password) throws MyException {
 		// TODO Auto-generated method stub
@@ -41,8 +48,8 @@ public class UserService implements IUserService{
 			throw new MyException("该用户名不存在！");
 		else if(!password.equals(u.getPassword()))
 			throw new MyException("密码错误！");
-		else
-		return 1;
+		else 
+			return u.getUserId();
 	}
 
 	@Override
@@ -55,4 +62,6 @@ public class UserService implements IUserService{
 		else
 			return false;
 	}
+
+	
 }
