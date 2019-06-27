@@ -1,0 +1,4 @@
+com\ringo\ssh\dao\IUserDaoTest.class
+com\ringo\ssh\dao\UserDaoTest.class
+com\ringo\ssh\service\UserServiceTest.class
+com\ringo\ssh\dao\BaseTestCaseJunit44.class

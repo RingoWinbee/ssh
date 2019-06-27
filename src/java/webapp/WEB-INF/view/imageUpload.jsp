@@ -7,7 +7,7 @@
 <title>测试文件上传</title>
 	<% String path = request.getContextPath();%>
 	<%String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
-	<script type="text/javascript" src="http://localhost:8084/ssh/static/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>static/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#submit").click(function(){

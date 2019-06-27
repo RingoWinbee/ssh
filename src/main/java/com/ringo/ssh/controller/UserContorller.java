@@ -1,10 +1,12 @@
 package com.ringo.ssh.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -177,6 +179,35 @@ public class UserContorller {
 		renderData(response, fileName);
 	}
 
+	
+	/**
+	 * 
+	 * 用于删除用户之前的图片
+	 * 
+	 * @param HttpServletRequest  req
+	 * @param HttpServletResponse response
+	 */
+	@RequestMapping(value = "/deleteImage", method = RequestMethod.POST)
+	public void deleteImage(HttpServletRequest request, HttpServletResponse response) {
+		boolean flag = false;
+		String lastFileName=(String)request.getParameter("lastFileName");
+		System.out.println("要删除的文件名:"+lastFileName);
+		System.out.println("realpath:"+request.getSession().getServletContext().getRealPath("/"));
+		String filePath=request.getSession().getServletContext().getRealPath("/")+"WEB-INF/upload/"+lastFileName;
+		System.out.println(filePath);
+		File file=new File(filePath);
+		
+		//判断文件是否存在
+		if (file.exists()) {
+			System.out.println("存在该文件");
+            flag = file.delete();
+        }
+		if (flag) {
+            System.out.println("删除文件成功");
+        } else {
+            System.out.println("删除文件出错");
+        }
+	}
 	/**
 	 * 用于跳转到上传图片页面.jsp页面
 	 * 
@@ -205,7 +236,7 @@ public class UserContorller {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("userId");
 		if (obj != null) {
-			int userId = (int) obj;
+			int userId =(int)obj;
 			System.out.println("拿到的session:" + userId);
 			User u1 = userService.getUserByUserId(userId);
 			User u2 = new User();
@@ -245,7 +276,7 @@ public class UserContorller {
 
 	@RequestMapping(value="/updateUserMessage",method = RequestMethod.POST)
 	public void updateUserMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User u = userService.getUserByUserId((int) request.getSession().getAttribute("userId"));
+		User u = userService.getUserByUserId((int)request.getSession().getAttribute("userId"));
 		u.setAddress((String) request.getParameter("address"));
 		u.setPhone((String) request.getParameter("phone"));
 		u.setRealName((String) request.getParameter("realName"));

@@ -6,7 +6,7 @@
 	<groupId>com.ringo</groupId>
 	<artifactId>ssh</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>ssh</name>
 	<url>http://maven.apache.org</url>
@@ -153,5 +153,7 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 		<!-- Json格式依赖 end -->
+
+
 	</dependencies>
 </project>

@@ -12,25 +12,32 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<script type="text/javascript"
-	src="http://localhost:8084/ssh/static/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/jquery.min.js"></script>
+<link href = "<%=basePath%>static/bootstrap.min.css" rel = "stylesheet">
 <script type="text/javascript">
 	$(function() {
 		//用于向后台获取用户信息
+		alert("44");
 		$.ajax({
-			url : "http://localhost:8084/ssh/user/showUserMasssage",
+			url : "http://localhost:9080/ssh/user/showUserMasssage",
 			type : "GET",
 			//后台返回的dataType类型和前台写的不一致会跳入error		
 			//dataType: "json",
 			async : false,
 			success : function(data) {
 				var obj = JSON.parse(data);
-				alert(obj.userName);
 				$("#userName").val(obj.userName);
 				$("#realName").val(obj.realName);
 				$("#phone").val(obj.phone);
 				$("#address").val(obj.address);
-				$("#headPhoto").val(obj.headPhoto);
+				$("#headPhoto")
+						.attr(
+								"src",
+								$("#headPhoto").attr("src") + "upload/"
+										+ obj.headPhoto);
+				console.log($("#headPhoto").attr("src"));
+				$("#lastImagePath").val(obj.headPhoto);
+				$("#imageName").val(obj.headPhoto);
 			},
 			//如果有错误抛出则向页面显示错误信息
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -43,6 +50,7 @@
 		//图片上传
 		$("#upLoadImage").click(
 				function() {
+					alert("11");
 					var fileName = $("#pictureUpload").val(); //获取文件名 
 					var suffixIndex = fileName.lastIndexOf(".");
 					suffix = fileName.substring(suffixIndex + 1).toUpperCase();
@@ -67,12 +75,33 @@
 						success : function(data) {
 
 							//在这我们可以获取到后台来的路径进行回显
+							$("#headPhoto").attr("src",
+									$("#basePath").attr("src"));
 							$("#headPhoto").attr(
 									"src",
 									$("#headPhoto").attr("src") + "upload/"
 											+ data);
 							$("#imageName").val(data);
-							alter($("#imageName").val());
+							alert($("#imageName").val());
+						},
+					});
+
+					//删除原来的图片
+					$.ajax({
+						url : "deleteImage",
+						type : "POST",
+						async : false,
+						data : {
+							"lastFileName" : $("#lastImagePath").val()
+						},
+						success : function(data) {
+						},
+						//如果有错误抛出则向页面显示错误信息
+						error : function(XMLHttpRequest, textStatus,
+								errorThrown) {
+							alert(XMLHttpRequest.status);
+							alert(XMLHttpRequest.readyState);
+							alert(textStatus);
 						},
 					});
 				});
@@ -105,8 +134,12 @@
 </script>
 </head>
 <body>
-	<img alt="用户头像" src="<%=basePath%>" id="headPhoto">
+	<img alt="用户头像" src="<%=basePath%>" id="headPhoto"
+		style="width: 100px; height: 100px;">
+	<img onerror="this.style.display='none'" src="<%=basePath%>"
+		id="basePath">
 	<p hidden id="imageName"></p>
+	<p hidden id="lastImagePath"></p>
 	<br>
 	<input type="file" id="pictureUpload">
 	<input type="button" value="上传图片" id="upLoadImage">
@@ -119,6 +152,6 @@
 	<br> 地址：
 	<input type="text" id="address">
 	<br>
-	<input type="button" id="save">
+	<input type="button" id="save" value="保存">
 </body>
 </html>
