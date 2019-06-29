@@ -135,7 +135,7 @@ public class UserContorller {
 
 	/**
 	 * 
-	 * 用于向用户邮箱发送6位验证码
+	 * 用于当用户注册时向用户邮箱发送6位验证码
 	 * 
 	 * @param request
 	 * @param response
@@ -153,6 +153,33 @@ public class UserContorller {
 			renderData(response, "邮箱验证码已发送");
 			HttpSession session = request.getSession();
 			session.setAttribute("activationCode", activationCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			renderData(response, e.getMessage());
+		}
+	}
+	
+	/**
+	 * 
+	 * 用于当用户修改密码时向用户邮箱发送6位验证码
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/sendUserEmailCodeForPassword", method = RequestMethod.POST)
+	public void sendUserEmailCodeForPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		User u = userService.getUserByUserId((int)request.getSession().getAttribute("userId"));
+		String userMail=u.getEmail();
+		// 构造6位随机验证码
+		String activationCode = new CreatRandCode().creatCode();
+		System.out.println("验证码：" + activationCode);
+		// 将该六位验证码发送到用户邮箱
+		try {
+			new SendMail(userMail, activationCode).toSendMail();
+			renderData(response, "邮箱验证码已发送");
+			HttpSession session = request.getSession();
+			session.setAttribute("changePasswordCode", activationCode);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			renderData(response, e.getMessage());
@@ -284,5 +311,31 @@ public class UserContorller {
 		u.setHeadPhoto((String) request.getParameter("headPhoto"));
 		userService.updateUser(u);
 		renderData(response, "修改成功");
+	}
+	
+	/**
+	 * 
+	 * 用于给用户修改密码
+	 * 
+	 * @param HttpServletRequest  request
+	 * @param HttpServletResponse response
+	 * @throws IOException 
+	 * 
+	 * 
+	 */
+	@RequestMapping(value="/updateUserPassword",method = RequestMethod.POST)
+	public void updateUserPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String newPassword=(String)request.getParameter("newPassword");
+		String mailCode=(String)request.getParameter("mailCode");
+		Object item = request.getSession().getAttribute("changePasswordCode");
+		String code = item.toString();
+		if(!code.equals(mailCode))
+			renderData(response, "验证码不匹配！");
+		else {
+			User u = userService.getUserByUserId((int)request.getSession().getAttribute("userId"));
+			u.setPassword(newPassword);
+			userService.updateUser(u);
+			renderData(response, "修改成功");
+		}
 	}
 }

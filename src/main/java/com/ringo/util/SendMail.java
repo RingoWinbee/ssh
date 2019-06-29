@@ -75,7 +75,7 @@ public class SendMail {
          */
         msg.setRecipient(MimeMessage.RecipientType.TO,new InternetAddress(recipientAddress));
         //设置邮件主题
-        msg.setSubject("大米网上商城注册邮箱验证码","UTF-8");
+        msg.setSubject("大米网上商城邮箱验证码","UTF-8");
         //设置邮件正文
         msg.setContent(activationCode, "text/html;charset=UTF-8");
         //设置邮件的发送时间,默认立即发送
