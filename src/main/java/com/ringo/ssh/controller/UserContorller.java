@@ -114,7 +114,7 @@ public class UserContorller {
 		String userName = request.getParameter("userName");
 		String activationCode = request.getParameter("activationCode");
 		if (!userService.isHasUser(email)) {
-			HttpSession session = request.getSession(false);
+			HttpSession session = request.getSession();
 			Object item = session.getAttribute("activationCode");
 			String code = item.toString();
 			if (!code.equals(activationCode))
@@ -130,7 +130,7 @@ public class UserContorller {
 			}
 
 		} else
-			renderData(response, "该邮箱已已被注册！");
+			renderData(response, "该邮箱已被注册！");
 	}
 
 	/**
@@ -337,5 +337,33 @@ public class UserContorller {
 			userService.updateUser(u);
 			renderData(response, "修改成功");
 		}
+	}
+	
+	/**
+	 * 
+	 * 用于用户修改邮箱
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/updateUserEmail", method = RequestMethod.POST)
+	public void updateUserEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String newEmail = request.getParameter("email");
+		String changeEmailCode = request.getParameter("changeEmailCode");
+		if (!userService.isHasUser(newEmail)) {
+			HttpSession session = request.getSession();
+			Object item = session.getAttribute("activationCode");
+			String code = item.toString();
+			if (!code.equals(changeEmailCode))
+				renderData(response, "验证码不匹配！");
+			else {
+				User u = userService.getUserByUserId((int)request.getSession().getAttribute("userId"));
+				u.setEmail(newEmail);
+				userService.updateUser(u);
+				renderData(response, "修改成功");
+			}
+		} else
+			renderData(response, "该邮箱已被注册！");
 	}
 }
