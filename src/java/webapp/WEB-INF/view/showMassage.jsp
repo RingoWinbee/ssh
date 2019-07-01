@@ -19,25 +19,31 @@
 		//用于向后台获取用户信息
 		alert("44");
 		$.ajax({
-			url : "http://localhost:9080/ssh/user/showUserMasssage",
+			url : "http://localhost:8080/ssh/user/showUserMasssage",
 			type : "GET",
 			//后台返回的dataType类型和前台写的不一致会跳入error		
 			//dataType: "json",
 			async : false,
 			success : function(data) {
-				var obj = JSON.parse(data);
-				$("#userName").val(obj.userName);
-				$("#realName").val(obj.realName);
-				$("#phone").val(obj.phone);
-				$("#address").val(obj.address);
-				$("#headPhoto")
-						.attr(
-								"src",
-								$("#headPhoto").attr("src") + "upload/"
-										+ obj.headPhoto);
-				console.log($("#headPhoto").attr("src"));
-				$("#lastImagePath").val(obj.headPhoto);
-				$("#imageName").val(obj.headPhoto);
+				if(data=="请先登陆后查看"){
+					alert("请先登陆后查看");
+					window.location.href="userSignInPage";
+				}
+				else{
+					var obj = JSON.parse(data);
+					$("#userName").val(obj.userName);
+					$("#realName").val(obj.realName);
+					$("#phone").val(obj.phone);
+					$("#address").val(obj.address);
+					$("#headPhoto")
+							.attr(
+									"src",
+									$("#headPhoto").attr("src") + "upload/"
+											+ obj.headPhoto);
+					console.log($("#headPhoto").attr("src"));
+					$("#lastImagePath").val(obj.headPhoto);
+					$("#imageName").val(obj.headPhoto);
+				}
 			},
 			//如果有错误抛出则向页面显示错误信息
 			error : function(XMLHttpRequest, textStatus, errorThrown) {

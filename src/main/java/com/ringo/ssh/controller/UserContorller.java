@@ -199,7 +199,7 @@ public class UserContorller {
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) request;
 		MultipartFile file = mreq.getFile("file");
-		String frontName = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/upload/";
+		String frontName = request.getSession().getServletContext().getRealPath("/") + "upload/";
 		System.out.println(frontName);
 		FileUpload f = new FileUpload();
 		String fileName = f.imageUpload(file, frontName);
@@ -220,7 +220,7 @@ public class UserContorller {
 		String lastFileName=(String)request.getParameter("lastFileName");
 		System.out.println("要删除的文件名:"+lastFileName);
 		System.out.println("realpath:"+request.getSession().getServletContext().getRealPath("/"));
-		String filePath=request.getSession().getServletContext().getRealPath("/")+"WEB-INF/upload/"+lastFileName;
+		String filePath=request.getSession().getServletContext().getRealPath("/")+"upload/"+lastFileName;
 		System.out.println(filePath);
 		File file=new File(filePath);
 		
@@ -247,6 +247,17 @@ public class UserContorller {
 		return "imageUpload";
 	}
 
+	/**
+	 * 用于跳转到上传图片页面.jsp页面
+	 * 
+	 * @param
+	 * @param
+	 */
+	@RequestMapping(value = "/userRegisterPage",method = RequestMethod.GET)
+	public String userRegisterPage(HttpServletRequest request, HttpServletResponse response) {
+
+		return "userRegister";
+	}
 	/**
 	 * 
 	 * 用于显示用户的基本个人信息
