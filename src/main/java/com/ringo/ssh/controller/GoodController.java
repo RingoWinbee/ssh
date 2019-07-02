@@ -54,4 +54,22 @@ public class GoodController {
 		JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
 		renderData(response, jsonArray2.toString());
 	}
+	
+	/**
+	 * 搜索商品从新到旧开始排序
+	 * 
+	 * @param response
+	 * @param data
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/searchGoods", method = RequestMethod.GET)
+	public void searchGoods(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String serachName=(String)request.getParameter("serachName");
+		List<Goods> goods=goodsService.getGoodsByName(serachName);
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.setExcludes(new String[]{"goods"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
+		renderData(response, jsonArray2.toString());
+	}
 }
