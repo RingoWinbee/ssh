@@ -3,31 +3,21 @@ package com.ringo.ssh.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.ringo.ssh.entity.User;
 import com.ringo.ssh.exception.MyException;
 import com.ringo.ssh.service.IUserService;
 import com.ringo.util.CreatRandCode;
 import com.ringo.util.FileUpload;
 import com.ringo.util.SendMail;
-
 import net.sf.json.JSONObject;
 
 @Controller
@@ -199,7 +189,7 @@ public class UserContorller {
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) request;
 		MultipartFile file = mreq.getFile("file");
-		String frontName = request.getSession().getServletContext().getRealPath("/") + "upload/";
+		String frontName = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/upload/";
 		System.out.println(frontName);
 		FileUpload f = new FileUpload();
 		String fileName = f.imageUpload(file, frontName);
@@ -220,7 +210,7 @@ public class UserContorller {
 		String lastFileName=(String)request.getParameter("lastFileName");
 		System.out.println("要删除的文件名:"+lastFileName);
 		System.out.println("realpath:"+request.getSession().getServletContext().getRealPath("/"));
-		String filePath=request.getSession().getServletContext().getRealPath("/")+"upload/"+lastFileName;
+		String filePath=request.getSession().getServletContext().getRealPath("/")+"WEB-INF/upload/"+lastFileName;
 		System.out.println(filePath);
 		File file=new File(filePath);
 		

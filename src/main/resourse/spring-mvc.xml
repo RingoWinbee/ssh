@@ -22,7 +22,7 @@
 
 	<!-- 访问静态资源 -->
 	<mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
-	<mvc:resources mapping="/upload/**" location="/upload/"/>
+	<mvc:resources mapping="/upload/**" location="/WEB-INF/upload/"/>
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
