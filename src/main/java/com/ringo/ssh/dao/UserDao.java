@@ -38,9 +38,9 @@ public class UserDao implements IUserDao {
 	}
 
 	/**
-	 * 根据UserName来查找用户
+	 * 根据Emial来查找用户
 	 * 
-	 * @param String userName
+	 * @param String eamil
 	 * @return User
 	 */
 	public User getPersonByEmail(String email) {

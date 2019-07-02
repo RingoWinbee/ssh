@@ -3,7 +3,7 @@ package com.ringo.ssh.dao;
 import com.ringo.ssh.entity.User;
 
 /**
- * 抽象持久层层接口:
+ * User抽象持久层层接口:
  * 		
  * @author 李卓岚
  *
