@@ -18,13 +18,13 @@ public class GoodsDaoTest extends BaseTestCaseJunit44 {
 	@Rollback(false)
 	public void testSave() {
 		Goods goods=new Goods();
-		goods.setGoodsName("短袖");
+		goods.setGoodsName("长袖");
 		goods.setGoodsInfo("街舞专业");
 		goods.setGoodsPrice(10.00);
 		goods.setGoodsRealPrice(10.00);
 		goods.setGoodsDate(new Date());
 		Category c=new Category();
-		c.setCategoryId(3);
+		c.setCategoryId(1);
 		goods.setCategory(c);
 		goodsDao.save(goods);
 	}

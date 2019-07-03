@@ -1,11 +1,16 @@
 package com.ringo.ssh.entity;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -40,6 +45,11 @@ public class User {
 	
 	@Column(name = "address")
 	private String address;
+	
+	@OneToMany(targetEntity = ShopCar.class,fetch=FetchType.LAZY)
+	@JoinColumn(name="userId")
+	@Cascade(CascadeType.ALL)
+	private List<ShopCar> shopCat;
 	
 	@Column(name = "activationCode",updatable=false,nullable=false)
 	private String activationCode;
@@ -102,6 +112,14 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public List<ShopCar> getShopCat() {
+		return shopCat;
+	}
+
+	public void setShopCat(List<ShopCar> shopCat) {
+		this.shopCat = shopCat;
 	}
 
 	public String getActivationCode() {

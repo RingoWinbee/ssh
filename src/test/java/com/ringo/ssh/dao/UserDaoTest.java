@@ -16,8 +16,8 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	@Rollback(false)
 	public void testSave() {
 		User u=new User();
-		u.setUserName("Ringo");
-		u.setEmail("13922924658@163.com");
+		u.setUserName("winbee");
+		u.setEmail("1661853569@qq.com");
 		u.setPassword("104");
 		u.setActivationCode("efgh");
 		userDao.save(u);
@@ -38,7 +38,7 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testDelete() {
-		userDao.delete(3);
+		userDao.delete(1);
 	}
 	
 	@Test

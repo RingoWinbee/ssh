@@ -1,14 +1,20 @@
 package com.ringo.ssh.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -43,6 +49,12 @@ public class Goods {
 	
 	@Column(name = "goodsState")
 	private int goodsState;
+	
+	//将商品和商品评价进行一对多关联
+//	@OneToMany(targetEntity = Reviews.class,fetch=FetchType.LAZY)
+//	@JoinColumn(name="goodsId")
+//	@Cascade(CascadeType.ALL)
+//	private Set<Reviews> reviews;
 	
 	/**
      * 商品类型
@@ -135,4 +147,12 @@ public class Goods {
 	public void setGoodsDate(Date goodsDate) {
 		this.goodsDate = goodsDate;
 	}
+
+//	public Set<Reviews> getReviews() {
+//		return reviews;
+//	}
+//
+//	public void setReviews(Set<Reviews> reviews) {
+//		this.reviews = reviews;
+//	}
 }
