@@ -30,6 +30,6 @@ public class ShopCarDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testDelete() {
-		shopCarDao.delete(4);
+		shopCarDao.delete(2);
 	}
 }

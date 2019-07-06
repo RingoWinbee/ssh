@@ -1,14 +1,20 @@
 package com.ringo.ssh.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,39 +25,45 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Goods {
 
 	@Id
-	@Column(name = "goodsId",updatable=false)
+	@Column(name = "goodsId", updatable = false)
 	@GeneratedValue()
 	private int goodsId;
-	
+
 	@Column(name = "goodsName")
 	private String goodsName;
-	
+
 	@Column(name = "goodsPrice")
 	private Double goodsPrice;
-	
+
 	@Column(name = "goodsRealPrice")
 	private Double goodsRealPrice;
-	
+
 	@Column(name = "goodsImg")
 	private String goodsImg;
-	
+
 	@Column(name = "goodsInfo")
 	private String goodsInfo;
-	
+
 	@Column(name = "goodsStock")
 	private Double goodsStock;
-	
+
 	@Column(name = "goodsState")
 	private int goodsState;
-	
+
 	/**
-     * 商品类型
-    */
-	//多对一对应category表里面的主码id
-    @ManyToOne
-    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId", unique = false)
-    private Category category;   //关联产品类型那边
-	
+	 * 商品类型
+	 */
+	// 多对一对应category表里面的主码id
+	@ManyToOne
+	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId", unique = false)
+	private Category category; // 关联产品类型那边
+
+	// 将商品和购物车列表进行一对多关联
+	@OneToMany(targetEntity = ShopCarList.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "goodsId")
+	@Cascade(CascadeType.ALL)
+	private Set<ShopCarList> shopCarList;
+
 	@Column(name = "goodsDate")
 	private Date goodsDate;
 
@@ -119,7 +131,6 @@ public class Goods {
 		this.goodsState = goodsState;
 	}
 
-
 	public Category getCategory() {
 		return category;
 	}
@@ -135,4 +146,13 @@ public class Goods {
 	public void setGoodsDate(Date goodsDate) {
 		this.goodsDate = goodsDate;
 	}
+
+	public Set<ShopCarList> getShopCarList() {
+		return shopCarList;
+	}
+
+	public void setShopCarList(Set<ShopCarList> shopCarList) {
+		this.shopCarList = shopCarList;
+	}
+	
 }

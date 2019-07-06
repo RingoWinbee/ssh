@@ -1,11 +1,18 @@
 package com.ringo.ssh.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,40 +21,47 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate(true)
 @DynamicInsert(true)
 public class User {
-	
+
 	@Id
-	@Column(name = "userId",updatable=false)
+	@Column(name = "userId", updatable = false)
 	@GeneratedValue()
 	private int userId;
 
 	@Column(name = "userName")
 	private String userName;
-	
+
 	@Column(name = "password")
 	private String password;
-	
-	@Column(name = "email",nullable=false)
+
+	@Column(name = "email", nullable = false)
 	private String email;
 
 	@Column(name = "headPhoto")
 	private String headPhoto;
-	
+
 	@Column(name = "realName")
 	private String realName;
-	
+
 	@Column(name = "phone")
 	private String phone;
-	
+
 	@Column(name = "address")
 	private String address;
-	
-	@Column(name = "activationCode",updatable=false,nullable=false)
+
+	@Column(name = "activationCode", updatable = false, nullable = false)
 	private String activationCode;
+
+	// 将用户和购物车类别进行一对多关联
+	@OneToMany(targetEntity = ShopCar.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	@Cascade(CascadeType.ALL)
+	private Set<ShopCar> shopCar;
 	
-	//用户激活状态，激活为1，未激活为0
+	
+	// 用户激活状态，激活为1，未激活为0
 	@Column(name = "state")
 	private int state;
-	
+
 	public int getUserId() {
 		return userId;
 	}
@@ -126,5 +140,13 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<ShopCar> getShopCar() {
+		return shopCar;
+	}
+
+	public void setShopCar(Set<ShopCar> shopCar) {
+		this.shopCar = shopCar;
 	}
 }
