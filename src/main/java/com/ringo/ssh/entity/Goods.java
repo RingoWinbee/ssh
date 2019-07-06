@@ -62,8 +62,15 @@ public class Goods {
 	@SuppressWarnings("deprecation")
 	@OneToMany(targetEntity = ShopCarList.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "goodsId")
-	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN })
 	private Set<ShopCarList> shopCarList;
+
+	// 将商品和购物车列表进行一对多关联
+	@SuppressWarnings("deprecation")
+	@OneToMany(targetEntity = OrderDetails.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "goodsId")
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN })
+	private Set<OrderDetails> orderDetails;
 
 	@Column(name = "goodsDate")
 	private Date goodsDate;
@@ -155,5 +162,12 @@ public class Goods {
 	public void setShopCarList(Set<ShopCarList> shopCarList) {
 		this.shopCarList = shopCarList;
 	}
-	
+
+	public Set<OrderDetails> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetails> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 }
