@@ -1,6 +1,5 @@
 package com.ringo.ssh.entity;
 
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicInsert;
@@ -51,12 +49,12 @@ public class User {
 	@Column(name = "activationCode", updatable = false, nullable = false)
 	private String activationCode;
 
-	// 将用户和购物车类别进行一对多关联
+	// 将用户和购物车类别进行一对一关联
 	@SuppressWarnings("deprecation")
-	@OneToMany(targetEntity = ShopCar.class, fetch = FetchType.LAZY)
+	@OneToOne(targetEntity = ShopCar.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
 	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
-	private Set<ShopCar> shopCar;
+	private ShopCar shopCar;
 	
 	
 	// 用户激活状态，激活为1，未激活为0
@@ -143,11 +141,12 @@ public class User {
 		this.email = email;
 	}
 
-	public Set<ShopCar> getShopCar() {
+	public ShopCar getShopCar() {
 		return shopCar;
 	}
 
-	public void setShopCar(Set<ShopCar> shopCar) {
+	public void setShopCar(ShopCar shopCar) {
 		this.shopCar = shopCar;
 	}
+
 }

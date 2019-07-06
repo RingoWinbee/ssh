@@ -29,7 +29,7 @@ public class ShopCarListDaoTest extends BaseTestCaseJunit44{
 		s.setUsers(u);
 		s.setCarId(1);
 		Goods g=new Goods();
-		g.setGoodsId(2);
+		g.setGoodsId(1);
 		ShopCarList sc=new ShopCarList();
 		sc.setShopCar(s);
 		sc.setGoods(g);

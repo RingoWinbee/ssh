@@ -8,8 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -28,8 +28,8 @@ public class ShopCar {
 	@GeneratedValue()
 	private int carId;
 
-	@ManyToOne
-	@JoinColumn(name = "userId", referencedColumnName = "userId", unique = false)
+	@OneToOne
+	@JoinColumn(name = "userId", referencedColumnName = "userId", unique = true)
 	private User users;
 
 	// 将购物车和购物车列表进行一对多关联
