@@ -8,8 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -28,7 +28,7 @@ public class ShopCar {
 	@GeneratedValue()
 	private int carId;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "userId", referencedColumnName = "userId", unique = false)
 	private User users;
 
