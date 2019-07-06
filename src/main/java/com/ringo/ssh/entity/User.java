@@ -52,9 +52,10 @@ public class User {
 	private String activationCode;
 
 	// 将用户和购物车类别进行一对多关联
+	@SuppressWarnings("deprecation")
 	@OneToMany(targetEntity = ShopCar.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
-	@Cascade(CascadeType.ALL)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
 	private Set<ShopCar> shopCar;
 	
 	

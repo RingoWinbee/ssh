@@ -59,9 +59,10 @@ public class Goods {
 	private Category category; // 关联产品类型那边
 
 	// 将商品和购物车列表进行一对多关联
+	@SuppressWarnings("deprecation")
 	@OneToMany(targetEntity = ShopCarList.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "goodsId")
-	@Cascade(CascadeType.ALL)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
 	private Set<ShopCarList> shopCarList;
 
 	@Column(name = "goodsDate")

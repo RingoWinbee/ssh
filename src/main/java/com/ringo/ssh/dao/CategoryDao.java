@@ -51,8 +51,8 @@ public class CategoryDao implements ICategoryDao {
 	@Override
 	public List<Category> getCategoryByCategoryName(String categoryName) {
 		// TODO Auto-generated method stub
-		String hql="from Category where categoryName like :param";
-		return sessionFactory.getCurrentSession().createQuery(hql)
+		String sql="from Category where categoryName like :param";
+		return sessionFactory.getCurrentSession().createQuery(sql)
 				.setString("param", "%"+categoryName+"%").list();
 	}
 

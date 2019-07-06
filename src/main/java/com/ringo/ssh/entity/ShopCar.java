@@ -33,9 +33,10 @@ public class ShopCar {
 	private User users;
 
 	// 将购物车和购物车列表进行一对多关联
+	@SuppressWarnings("deprecation")
 	@OneToMany(targetEntity = ShopCarList.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "carId")
-	@Cascade(CascadeType.ALL)
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
 	private Set<ShopCarList> shopCarList;
 	
 	@Column(name = "goodsCounts")

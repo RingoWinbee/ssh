@@ -56,7 +56,7 @@ public class UserDao implements IUserDao {
 	 * @return User
 	 */
 	public User getPersonByUserId(int userId) {
-		//HQL语句也可以写成from User u where email =?
+		//HQL语句也可以写成from User u where email =?,但现在改用sql语句了
 		return (User) sessionFactory.getCurrentSession().createQuery("from User where userId =?")
 				.setParameter(0, userId).uniqueResult();
 	}

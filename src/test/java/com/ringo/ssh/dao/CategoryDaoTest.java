@@ -40,17 +40,17 @@ public class CategoryDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testGetCategoryById() {
-		Category c=categoryDao.getGoodsBycategoryId(2);
+		Category c=categoryDao.getGoodsBycategoryId(1);
 		System.out.println(c.getCategoryName());
 	}
 	
 	@Test
 	@Rollback(false)
 	public void testGetCategoryByName() {
-		List<Category> list=categoryDao.getCategoryByCategoryName("食品");
+		List<Category> list=categoryDao.getCategoryByCategoryName("服饰");
 		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-		jsonConfig.setExcludes(new String[]{"category"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		jsonConfig.setExcludes(new String[]{"category","shopCar","goods"});  //此处是亮点，只要将所需忽略字段加到数组中即可
 		JSONArray jsonArray2 = JSONArray.fromObject(list,jsonConfig);//将集合转换为json格式
 		System.out.println(jsonArray2.toString());
 	}

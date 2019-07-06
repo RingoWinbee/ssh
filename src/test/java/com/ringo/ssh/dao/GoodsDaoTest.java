@@ -8,6 +8,9 @@ import org.springframework.test.annotation.Rollback;
 import com.ringo.ssh.entity.Category;
 import com.ringo.ssh.entity.Goods;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+
 public class GoodsDaoTest extends BaseTestCaseJunit44 {
 
 	@Resource(name="GoodsDao")
@@ -53,10 +56,12 @@ public class GoodsDaoTest extends BaseTestCaseJunit44 {
 	@Test
 	@Rollback(false)
 	public void testGetGoodsByGoodsName() {
-		List<Goods> list=goodsDao.getGoodsByGoodsName("薯条");
-		for(Goods g:list) {
-			System.out.println(g.getGoodsName());
-		}
+		List<Goods> list=goodsDao.getGoodsByGoodsName("袖");
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.setExcludes(new String[]{"goods","shopCar"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		JSONArray jsonArray2 = JSONArray.fromObject(list,jsonConfig);//将集合转换为json格式
+		System.out.println(jsonArray2.toString());
 
 	}
 }

@@ -2,6 +2,8 @@ package com.ringo.ssh.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.AfterClass;
@@ -9,7 +11,11 @@ import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import com.ringo.ssh.entity.ShopCar;
+import com.ringo.ssh.entity.ShopCarList;
 import com.ringo.ssh.entity.User;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 public class ShopCarDaoTest extends BaseTestCaseJunit44{
 
@@ -31,5 +37,16 @@ public class ShopCarDaoTest extends BaseTestCaseJunit44{
 	@Rollback(false)
 	public void testDelete() {
 		shopCarDao.delete(2);
+	}
+	
+	@Test
+	@Rollback(false)
+	public void testGetByCarId() {
+	ShopCar sc=shopCarDao.getShopCarByShopCarId(2);
+	JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+	jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+	jsonConfig.setExcludes(new String[]{"shopCar","goods","shopCarList","users"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+	JSONArray jsonArray2 = JSONArray.fromObject(sc,jsonConfig);//将集合转换为json格式
+	System.out.println(jsonArray2);
 	}
 }

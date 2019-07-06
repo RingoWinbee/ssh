@@ -43,7 +43,7 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	
 	@Test
 	public void testGetPersonByEmail() {
-		User u=userDao.getPersonByEmail("13922924658@qq.com");
+		User u=userDao.getPersonByEmail("13922924658@163.com");
 		if(u==null)
 			System.out.println("找不到此用户");
 		else

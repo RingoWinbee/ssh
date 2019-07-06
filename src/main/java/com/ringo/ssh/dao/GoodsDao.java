@@ -53,5 +53,7 @@ public class GoodsDao implements IGoodsDao{
 		String hql="from Goods where goodsName like :param order by goodsDate DESC";
 		return sessionFactory.getCurrentSession().createQuery(hql)
 				.setString("param", "%"+goodsName+"%").list();
+//		String sql="select * from goods where goodsName like :param order by goodsDate DESC";
+//		return sessionFactory.getCurrentSession().createSQLQuery(sql).addEntity(Goods.class).setString("param", "%"+goodsName+"%").list();
 	}
 }
