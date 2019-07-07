@@ -37,4 +37,11 @@ public class OrderDao implements IOrdersDao{
 				.setParameter(0, orderId).uniqueResult();
 	}
 
+	@Override
+	public Order getOrderByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return (Order) sessionFactory.getCurrentSession().createQuery("from Order where userId =?")
+				.setParameter(0, userId).uniqueResult();
+	}
+
 }

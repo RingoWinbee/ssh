@@ -65,7 +65,7 @@ public class Goods {
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN })
 	private Set<ShopCarList> shopCarList;
 
-	// 将商品和购物车列表进行一对多关联
+	// 将商品和订单列表进行一对多关联
 	@SuppressWarnings("deprecation")
 	@OneToMany(targetEntity = OrderDetails.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "goodsId")

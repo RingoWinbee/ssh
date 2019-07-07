@@ -34,7 +34,7 @@ public class OrderDetailsDao implements IOrderDetailsDao{
 	@Override
 	public OrderDetails getOrderDetailsByOrderDetailsId(int orderDetailsId) {
 		// TODO Auto-generated method stub
-		return (OrderDetails) sessionFactory.getCurrentSession().createQuery("from OrderDetails where orderDetailsId =?")
+		return (OrderDetails) sessionFactory.getCurrentSession().createQuery("from OrderDetails where orderDetailsListId =?")
 				.setParameter(0, orderDetailsId).uniqueResult();
 	}
 

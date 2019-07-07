@@ -15,4 +15,5 @@ public interface IOrdersDao {
 	public void delete(int orderId);
 	//查询
 	public Order getOrderByOrderId(int orderId);
+	public Order getOrderByUserId(int userId);
 }
