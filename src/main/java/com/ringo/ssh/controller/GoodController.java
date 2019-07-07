@@ -52,7 +52,7 @@ public class GoodController {
 		List<Goods> goods=goodsService.getGoodsByName("");
 		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-		jsonConfig.setExcludes(new String[]{"goods"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		jsonConfig.setExcludes(new String[] { "goods","shopCarList","orderDetails"}); // 此处是亮点，只要将所需忽略字段加到数组中即可
 		JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
 		renderData(response, jsonArray2.toString());
 	}
@@ -72,7 +72,7 @@ public class GoodController {
 		else {
 			JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 			jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-			jsonConfig.setExcludes(new String[]{"goods"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+			jsonConfig.setExcludes(new String[] { "goods","shopCarList","orderDetails"}); // 此处是亮点，只要将所需忽略字段加到数组中即可
 			JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
 			renderData(response, jsonArray2.toString());
 		}
@@ -93,7 +93,7 @@ public class GoodController {
 		else {
 			JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 			jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-			jsonConfig.setExcludes(new String[]{"category"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+			jsonConfig.setExcludes(new String[]{"category","shopCarList","orderDetails"});  //此处是亮点，只要将所需忽略字段加到数组中即可
 			JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
 			renderData(response, jsonArray2.toString());
 		}
@@ -107,6 +107,8 @@ public class GoodController {
 	 */
 	@RequestMapping(value = "/showGoodsDetial", method = RequestMethod.GET)
 	public void showGoodsDetial(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		int goodsId=Integer.parseInt(request.getParameter("goodsId"));
+		Goods g=goodsService.getGoodsByGoodId(goodsId);
 		
 	}
 	

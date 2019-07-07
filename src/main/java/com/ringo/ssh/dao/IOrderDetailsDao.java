@@ -23,4 +23,6 @@ public interface IOrderDetailsDao {
 	public List<OrderDetails> getAllOrderDetails();
 	
 	public List<OrderDetails> getOrderDetailsyByOrderId(int orderId);
+	
+	List<OrderDetails> getOrderDetailsyByGoodsId(int goodsId);
 }

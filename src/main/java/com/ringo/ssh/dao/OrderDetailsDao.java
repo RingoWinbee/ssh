@@ -53,4 +53,12 @@ public class OrderDetailsDao implements IOrderDetailsDao{
 		return  sessionFactory.getCurrentSession().createQuery("from OrderDetails where orderId =?")
 				.setParameter(0, orderId).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderDetails> getOrderDetailsyByGoodsId(int goodsId) {
+		// TODO Auto-generated method stub
+		return  sessionFactory.getCurrentSession().createQuery("from OrderDetails where goodsId =?")
+				.setParameter(0, goodsId).list();
+	}
 }
