@@ -31,9 +31,10 @@ public class Category {
 	private String categoryName;
 	
 	//将商品和商品类别进行一对多关联
+		@SuppressWarnings("deprecation")
 		@OneToMany(targetEntity = Goods.class,fetch=FetchType.LAZY)
 		@JoinColumn(name="categoryId")
-		@Cascade(CascadeType.ALL)
+		@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE_ORPHAN})
 	private Set<Goods> goods;
 
 	public Set<Goods> getGoods() {

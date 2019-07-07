@@ -6,6 +6,9 @@ import org.springframework.test.annotation.Rollback;
 
 import com.ringo.ssh.entity.User;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+
 public class UserDaoTest extends BaseTestCaseJunit44{
 
 	//@Autowired
@@ -38,15 +41,29 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testDelete() {
-		userDao.delete(3);
+		userDao.delete(1);
 	}
 	
 	@Test
 	public void testGetPersonByEmail() {
-		User u=userDao.getPersonByEmail("13922924658@qq.com");
+		User u=userDao.getPersonByEmail("13922924658@163.com");
 		if(u==null)
 			System.out.println("找不到此用户");
 		else
 			System.out.println("OK");
+	}
+	
+	@Test
+	public void testGetPersonById() {
+		User u=userDao.getPersonByUserId(1);
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.setExcludes(new String[]{"users","shopCar","order"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		JSONArray jsonArray2 = JSONArray.fromObject(u,jsonConfig);//将集合转换为json格式
+		System.out.println(jsonArray2);
+		//[{"activationCode":"efgh","address":"","email":"13922924658@163.com","headPhoto":"","password":"104","phone":"","realName":"","state":0,"userId":1,"userName":"Ringo"}]
+		/**查询的信息
+		 * user(用户的基本信息)
+		 */
 	}
 }
