@@ -34,7 +34,7 @@ public class GoodsDaoTest extends BaseTestCaseJunit44 {
 	@Test
 	@Rollback(false)
 	public void testDelete() {
-		goodsDao.delete(2);
+		goodsDao.delete(1);
 	}
 
 	@Test

@@ -127,4 +127,5 @@ public class Order {
 	public void setOrderDetails(Set<OrderDetails> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+
 }

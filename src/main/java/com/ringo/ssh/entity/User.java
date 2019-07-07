@@ -51,7 +51,7 @@ public class User {
 	@Column(name = "activationCode", updatable = false, nullable = false)
 	private String activationCode;
 
-	// 将用户和购物车类别进行一对一关联
+	// 将用户和购物车进行一对一关联
 	@SuppressWarnings("deprecation")
 	@OneToOne(targetEntity = ShopCar.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")

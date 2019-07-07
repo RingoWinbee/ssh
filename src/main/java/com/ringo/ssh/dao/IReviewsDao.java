@@ -15,6 +15,6 @@ public interface IReviewsDao {
 	public void delete(int reviewsId);
 	//查询
 	public Reviews getReviewsByReviewsId(int reviewsId);
-	public Reviews getReviewsByUserId(int userId);
-	public List<Reviews> getReviewsByGoodsId(int goodsId);
+	public Reviews getReviewsByOrderDetailsId(int orderDetailsId);
+	public List<Reviews> getAllReviews();
 }

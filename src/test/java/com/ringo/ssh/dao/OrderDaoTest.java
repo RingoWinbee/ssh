@@ -31,7 +31,7 @@ public class OrderDaoTest extends BaseTestCaseJunit44{
 		o.setOrderState(0);
 		o.setTotalMoney(50.00);
 		User u=new User();
-		u.setUserId(1);
+		u.setUserId(2);
 		o.setUsers(u);
 		OrderDao.save(o);
 	}

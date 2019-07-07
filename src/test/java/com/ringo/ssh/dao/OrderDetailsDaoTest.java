@@ -22,11 +22,11 @@ public class OrderDetailsDaoTest extends BaseTestCaseJunit44{
 	public void testSave() {
 		OrderDetails od=new OrderDetails();
 		Goods g=new Goods();
-		g.setGoodsId(1);
+		g.setGoodsId(2);
 		od.setGoods(g);
 		od.setGoodsCount(2);
 		Order o=new Order();
-		o.setOrderId(1);
+		o.setOrderId(3);
 		od.setOrder(o);
 		od.setSumMoney(50.00);
 		OrderDetailsDao.save(od);

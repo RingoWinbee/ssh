@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import com.ringo.ssh.entity.Reviews;
 
 @Repository("ReviewsDao")
-public class ReviewsDao implements IReviewsDao{
-	
+public class ReviewsDao implements IReviewsDao {
+
 	@Resource
 	private SessionFactory sessionFactory;
 
@@ -27,7 +27,7 @@ public class ReviewsDao implements IReviewsDao{
 	@Override
 	public void delete(int reviewsId) {
 		// TODO Auto-generated method stub
-		Reviews r_delete=(Reviews)sessionFactory.getCurrentSession().get(Reviews.class, reviewsId);
+		Reviews r_delete = (Reviews) sessionFactory.getCurrentSession().get(Reviews.class, reviewsId);
 		sessionFactory.getCurrentSession().delete(r_delete);
 	}
 
@@ -39,14 +39,18 @@ public class ReviewsDao implements IReviewsDao{
 	}
 
 	@Override
-	public Reviews getReviewsByUserId(int userId) {
+	public Reviews getReviewsByOrderDetailsId(int orderDetailsId) {
 		// TODO Auto-generated method stub
-		return null;
+		return (Reviews) sessionFactory.getCurrentSession().createQuery("from Reviews where orderDetailsId =?")
+				.setParameter(0, orderDetailsId).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Reviews> getReviewsByGoodsId(int goodsId) {
+	public List<Reviews> getAllReviews() {
 		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().createQuery("from Reviews")
+				.list();
+		//return sessionFactory.getCurrentSession().createSQLQuery("select * from reviews").list();
 	}
 }
