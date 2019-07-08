@@ -1,5 +1,7 @@
 package com.ringo.ssh.dao;
 
+import java.util.List;
+
 import com.ringo.ssh.entity.Order;
 
 /**
@@ -10,10 +12,10 @@ import com.ringo.ssh.entity.Order;
  */
 public interface IOrdersDao {
 
-	public void save(Order order);
+	public int save(Order order);
 	public void update(Order order);
 	public void delete(int orderId);
 	//查询
 	public Order getOrderByOrderId(int orderId);
-	public Order getOrderByUserId(int userId);
+	public List<Order> getOrderByUserId(int userId);
 }

@@ -1,5 +1,7 @@
 package com.ringo.ssh.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -12,9 +14,9 @@ public class OrderDao implements IOrdersDao{
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void save(Order order) {
+	public int save(Order order) {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().save(order);
+		return Integer.parseInt((String)sessionFactory.getCurrentSession().save(order));
 	}
 
 	@Override
@@ -37,11 +39,12 @@ public class OrderDao implements IOrdersDao{
 				.setParameter(0, orderId).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Order getOrderByUserId(int userId) {
+	public List<Order> getOrderByUserId(int userId) {
 		// TODO Auto-generated method stub
-		return (Order) sessionFactory.getCurrentSession().createQuery("from Order where userId =?")
-				.setParameter(0, userId).uniqueResult();
+		return sessionFactory.getCurrentSession().createQuery("from Order where userId =?")
+				.setParameter(0, userId).list();
 	}
 
 }
