@@ -68,4 +68,10 @@ public class ShopCarListDaoTest extends BaseTestCaseJunit44{
 		 * goods(没有商品分类)
 		 */
 	}
+	
+	@Test
+	@Rollback(false)
+	public void testDeleteShopCarListById() {
+		shopCarListDao.delete(2);
+	}
 }

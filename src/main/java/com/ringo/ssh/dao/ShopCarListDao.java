@@ -56,4 +56,18 @@ public class ShopCarListDao implements IShopCarListDao{
 		return  sessionFactory.getCurrentSession().createQuery("from ShopCarList where carId =?")
 				.setParameter(0, carId).list();
 	}
+	
+	@Override
+	public ShopCarList getShopCarListyByGoodsId(int goodsId) {
+		// TODO Auto-generated method stub
+		return  (ShopCarList)sessionFactory.getCurrentSession().createQuery("from ShopCarList where goodsId =?")
+				.setParameter(0, goodsId).uniqueResult();
+	}
+
+	@Override
+	public ShopCarList getShopCarListyByShopCarListId(int shopCarListId) {
+		// TODO Auto-generated method stub
+		return  (ShopCarList)sessionFactory.getCurrentSession().createQuery("from ShopCarList where shopCarListId =?")
+				.setParameter(0, shopCarListId).uniqueResult();
+	}
 }

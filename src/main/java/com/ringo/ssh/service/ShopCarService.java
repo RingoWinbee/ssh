@@ -49,6 +49,11 @@ public class ShopCarService implements IShopCarService {
 
 	@Override
 	@Transactional
+	public ShopCar getShopCarByUserId(int userId) {
+		return shopCarDao.getShopCarByUserId(userId);
+	}
+	@Override
+	@Transactional
 	public List<ShopCarList_Goods> getShopCarListByUserId(int userId) {
 		// TODO Auto-generated method stub
 		int shopCarId = shopCarDao.getShopCarByUserId(userId).getCarId();

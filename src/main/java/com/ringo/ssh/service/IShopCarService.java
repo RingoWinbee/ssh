@@ -12,4 +12,5 @@ public interface IShopCarService {
 	public void updateShopCar(ShopCar shopCar);
 	public void deleteShopCar(int shopCarId);
 	public List<ShopCarList_Goods> getShopCarListByUserId(int UserId);
+	public ShopCar getShopCarByUserId(int userId);
 }

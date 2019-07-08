@@ -29,7 +29,7 @@ public class ShopCarList {
     
     //多对一对应goods表里面的主码goodsId
     @ManyToOne
-    @JoinColumn(name = "goodsId", referencedColumnName = "goodsId", unique = false)
+    @JoinColumn(name = "goodsId", referencedColumnName = "goodsId", unique = true)
 	private Goods goods;
     
     //商品数量

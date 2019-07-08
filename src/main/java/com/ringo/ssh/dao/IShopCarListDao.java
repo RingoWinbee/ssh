@@ -24,4 +24,8 @@ public interface IShopCarListDao {
 	public List<ShopCarList> getAllShopCarList();
 
 	public List<ShopCarList> getShopCarListyByCarId(int carId);
+	
+	public ShopCarList getShopCarListyByGoodsId(int goodsId);
+	
+	public ShopCarList getShopCarListyByShopCarListId(int shopCarListId);
 }

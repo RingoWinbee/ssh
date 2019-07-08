@@ -1,5 +1,6 @@
 package com.ringo.ssh.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -9,11 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ringo.ssh.entity.Category;
 import com.ringo.ssh.entity.Goods;
 import com.ringo.ssh.entity.Reviews_User;
 import com.ringo.ssh.service.IGoodsService;
+import com.ringo.util.FileUpload;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 
@@ -133,4 +138,52 @@ public class GoodController {
 		renderData(response, reviews.toString());
 	}
 	
+	/**
+	 * 
+	 * 用于给商品上传图片
+	 * 
+	 * @param HttpServletRequest  request
+	 * @param HttpServletResponse response
+	 * @throws Exception
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) request;
+		MultipartFile file = mreq.getFile("file");
+		String frontName = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/upload/";
+		System.out.println(frontName);
+		FileUpload f = new FileUpload();
+		String fileName = f.imageUpload(file, frontName);
+		renderData(response, fileName);
+	}
+
+	/**
+	 * 
+	 * 用于删除商品之前的图片
+	 * 
+	 * @param HttpServletRequest  req
+	 * @param HttpServletResponse response
+	 */
+	@RequestMapping(value = "/deleteImage", method = RequestMethod.POST)
+	public void deleteImage(HttpServletRequest request, HttpServletResponse response) {
+		boolean flag = false;
+		String lastFileName=(String)request.getParameter("lastFileName");
+		System.out.println("要删除的文件名:"+lastFileName);
+		System.out.println("realpath:"+request.getSession().getServletContext().getRealPath("/"));
+		String filePath=request.getSession().getServletContext().getRealPath("/")+"WEB-INF/upload/"+lastFileName;
+		System.out.println(filePath);
+		File file=new File(filePath);
+		
+		//判断文件是否存在
+		if (file.exists()) {
+			System.out.println("存在该文件");
+            flag = file.delete();
+        }
+		if (flag) {
+            System.out.println("删除文件成功");
+        } else {
+            System.out.println("删除文件出错");
+        }
+	}
 }
