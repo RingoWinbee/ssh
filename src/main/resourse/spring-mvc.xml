@@ -36,5 +36,6 @@
         <property name="resolveLazily" value="true"/>			<!--resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常-->
         <property name="uploadTempDir" value="upload"></property>		<!--指定上传文件的临时文件夹，请在项目中创建好目录。-->
     </bean>
-	
+    
+    
 </beans>

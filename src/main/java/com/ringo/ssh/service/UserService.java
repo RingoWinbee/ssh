@@ -1,5 +1,7 @@
 package com.ringo.ssh.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +63,27 @@ public class UserService implements IUserService{
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<User> getUserByUserName(String userName){
+		// TODO Auto-generated method stub
+		return userDao.getUserByUserName(userName);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<User> listUser(int offset,int pageSize) {
+		
+		return userDao.listUser(offset,pageSize);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public int countUser() {
+	
+		return userDao.countUser();
 	}
 
 	

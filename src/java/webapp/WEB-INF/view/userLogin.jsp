@@ -18,7 +18,7 @@
 	function login() {
 		$.ajax({
 			url : "http://localhost:8080/ssh/user/userSignIn",
-			type : "POST",
+			type : "GET",
 			//后台返回的dataType类型和前台写的不一致会跳入error		
 			dataType : "text",
 			data : {

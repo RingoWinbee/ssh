@@ -1,12 +1,19 @@
 package com.ringo.ssh.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.cache.ehcache.internal.util.HibernateUtil;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import com.ringo.ssh.entity.User;
 
-public class UserDaoTest extends BaseTestCaseJunit44{
+
+public class UserDaoTest extends BaseTestCaseJunit44 {
 
 	//@Autowired
 	@Resource(name="UserDao")
@@ -49,4 +56,36 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 		else
 			System.out.println("OK");
 	}
+	
+//	@Test
+//	@Rollback(false)
+//	public void testQueryUser() {
+//		Session s=null;
+//	       try{
+//	           s=HibernateUtil.getSession();
+//	           //hibernate的查询语言.from后面+类名（区分大小写）.也可以用as给类起一个别名，as可以省略
+//	           //按照姓名查找
+//	           String queryString="from User as user order by user.userId"; 
+//	           Query query=s.createQuery(queryString);
+//	           //query.setString("n",name);
+//	           //分页显示的操作
+//	           query.setFirstResult(1);//显示第几页，当前页
+//	           query.setMaxResults(2);//每页做多显示的记录数
+//	           //返回多行结果集
+//	           List<User> list=query.list();
+//	           for(User u:list){
+//	              System.out.println(u.getUserId()+":"+u.getUserName());
+//	           }	      
+//	           /*User user=(User) query.uniqueResult();
+//
+//	           System.out.println(user.getId()+":"+user.getName());*/
+//	         
+//	           /*query.uniqueResult();//返回一行结果集*/      
+//	       }finally{
+//	           if(s!=null){
+//	              s.close();
+//	           }
+//	       }
+//	}
+//	
 }

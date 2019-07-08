@@ -1,5 +1,7 @@
 package com.ringo.ssh.dao;
 
+import java.util.List;
+
 import com.ringo.ssh.entity.User;
 
 /**
@@ -15,4 +17,9 @@ public interface IUserDao {
 	//查询
 	public User getPersonByEmail(String email);
 	public User getPersonByUserId(int userId);
+	//用户名模糊查询
+	public List<User> getUserByUserName(String userName);
+	public List<User> listUser(int offset,int pageSize);
+	//返回用户总数
+	public int countUser();
 }
