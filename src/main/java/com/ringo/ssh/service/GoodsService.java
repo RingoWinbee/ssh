@@ -1,21 +1,15 @@
 package com.ringo.ssh.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ringo.ssh.dao.ICategoryDao;
 import com.ringo.ssh.dao.IGoodsDao;
 import com.ringo.ssh.dao.IOrderDetailsDao;
 import com.ringo.ssh.dao.IOrdersDao;
 import com.ringo.ssh.dao.IReviewsDao;
-import com.ringo.ssh.dao.IUserDao;
 import com.ringo.ssh.entity.Category;
 import com.ringo.ssh.entity.Goods;
 import com.ringo.ssh.entity.OrderDetails;
@@ -40,10 +34,7 @@ public class GoodsService implements IGoodsService{
 	
 	@Resource(name="OrderDao")
 	private IOrdersDao orderDao;
-	
-	@Resource(name="UserDao")
-	private IUserDao userDao;
-	
+
 	@Override
 	@Transactional
 	public void saveGoods(Goods goods) {

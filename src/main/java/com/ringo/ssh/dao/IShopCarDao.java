@@ -17,4 +17,5 @@ public interface IShopCarDao {
 	public void delete(int shopCarId);
 	//查询
 	public ShopCar getShopCarByShopCarId(int shopCarId);
+	public ShopCar getShopCarByUserId(int userId);
 }

@@ -47,15 +47,18 @@ public class UserDaoTest extends BaseTestCaseJunit44{
 	@Test
 	public void testGetPersonByEmail() {
 		User u=userDao.getPersonByEmail("13922924658@163.com");
+		
 		if(u==null)
 			System.out.println("找不到此用户");
-		else
+		else {
 			System.out.println("OK");
+		}
+			
 	}
 	
 	@Test
 	public void testGetPersonById() {
-		User u=userDao.getPersonByUserId(1);
+		User u=userDao.getPersonByUserId(2);
 		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
 		jsonConfig.setExcludes(new String[]{"users","shopCar","order"});  //此处是亮点，只要将所需忽略字段加到数组中即可

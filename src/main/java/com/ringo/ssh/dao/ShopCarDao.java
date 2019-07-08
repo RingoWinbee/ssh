@@ -40,4 +40,11 @@ public class ShopCarDao implements IShopCarDao{
 				.setParameter(0, shopCarId).uniqueResult();
 	}
 
+	@Override
+	public ShopCar getShopCarByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return (ShopCar) sessionFactory.getCurrentSession().createQuery("from ShopCar where userId =?")
+				.setParameter(0, userId).uniqueResult();
+	}
+
 }

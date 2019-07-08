@@ -27,7 +27,7 @@ public class ShopCarDaoTest extends BaseTestCaseJunit44{
 	public void testSave() {
 		ShopCar s=new ShopCar();
 		User u=new User();
-		u.setUserId(1);
+		u.setUserId(2);
 		s.setUsers(u);
 		s.setGoodsCount(1);
 		shopCarDao.save(s);
@@ -42,16 +42,34 @@ public class ShopCarDaoTest extends BaseTestCaseJunit44{
 	@Test
 	@Rollback(false)
 	public void testGetByCarId() {
-	ShopCar sc=shopCarDao.getShopCarByShopCarId(2);
+	ShopCar sc=shopCarDao.getShopCarByShopCarId(1);
 	JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 	jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-	jsonConfig.setExcludes(new String[]{"shopCar","goods","users"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+	jsonConfig.setExcludes(new String[]{"shopCar","goods","order"});  //此处是亮点，只要将所需忽略字段加到数组中即可
 	JSONArray jsonArray2 = JSONArray.fromObject(sc,jsonConfig);//将集合转换为json格式
 	System.out.println(jsonArray2);
-	//[{"carId":1,"goodsCount":1,"shopCarList":[{"goodsCount":1,"shopCarListId":1}]}]
+	//[{"carId":1,"goodsCount":1,"shopCarList":[],"users":{"activationCode":"efgh","address":"","email":"13922924658@163.com","headPhoto":"","password":"104","phone":"","realName":"","state":0,"userId":2,"userName":"Ringo"}}]
 	/**查到的信息
 	 * shopCar(购物车本身的信息)
 	 * shopCarList(属于该购物车的购物车列表信息,没有商品信息)
+	 * users(用户信息)
+	 */
+	}
+	
+	@Test
+	@Rollback(false)
+	public void testGetByUserId() {
+	ShopCar sc=shopCarDao.getShopCarByUserId(2);
+	JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+	jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+	jsonConfig.setExcludes(new String[]{"shopCar","goods","order"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+	JSONArray jsonArray2 = JSONArray.fromObject(sc,jsonConfig);//将集合转换为json格式
+	System.out.println(jsonArray2);
+	//[{"carId":1,"goodsCount":1,"shopCarList":[],"users":{"activationCode":"efgh","address":"","email":"13922924658@163.com","headPhoto":"","password":"104","phone":"","realName":"","state":0,"userId":2,"userName":"Ringo"}}]
+	/**查到的信息
+	 * shopCar(购物车本身的信息)
+	 * shopCarList(属于该购物车的购物车列表信息,没有商品信息)
+	 * users(用户信息)
 	 */
 	}
 }
