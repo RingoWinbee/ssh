@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ringo.ssh.entity.Category;
 import com.ringo.ssh.entity.Goods;
+import com.ringo.ssh.entity.Reviews_User;
 import com.ringo.ssh.service.IGoodsService;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
@@ -109,7 +110,27 @@ public class GoodController {
 	public void showGoodsDetial(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		int goodsId=Integer.parseInt(request.getParameter("goodsId"));
 		Goods g=goodsService.getGoodsByGoodId(goodsId);
+		JsonConfig jsonConfig = new JsonConfig(); // 建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false); // 设置默认忽略
+		jsonConfig.setExcludes(new String[] { "goods","shopCarList","orderDetails"}); // 此处是亮点，只要将所需忽略字段加到数组中即可
+		JSONArray goods = JSONArray.fromObject(g, jsonConfig);// 将集合转换为json格式
 		
+		renderData(response, goods.toString());
+		
+	}
+	
+	/**
+	 * 通过商品ID获得商品所有评论
+	 * @param response
+	 * @param data
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/getGoodsAllReviews", method = RequestMethod.GET)
+	public void getGoodsAllReviews(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		int goodsId=Integer.parseInt(request.getParameter("goodsId"));
+		List<Reviews_User> rus=goodsService.getReviewsByGoodsId(goodsId);
+		JSONArray reviews = JSONArray.fromObject(rus);//将集合转换为json格式
+		renderData(response, reviews.toString());
 	}
 	
 }
