@@ -72,7 +72,7 @@ public class OrderDetailsService implements IOrderDetailsService{
 				goods.add(od.getGoods());
 				goodsCount.add(od.getGoodsCount());
 			}
-			og.setGoods(goods);
+			og.setGoodss(goods);
 			og.setGoodsCount(goodsCount);
 			ogs.add(og);
 		}

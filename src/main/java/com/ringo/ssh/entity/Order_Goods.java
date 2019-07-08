@@ -7,7 +7,7 @@ public class Order_Goods {
 
 	private int OrderId;
 	
-	private List<Goods> goods;
+	private List<Goods> goodss;
 	
 	private List<Integer> goodsCount;
 
@@ -33,12 +33,12 @@ public class Order_Goods {
 	}
 
 
-	public List<Goods> getGoods() {
-		return goods;
+	public List<Goods> getGoodss() {
+		return goodss;
 	}
 
-	public void setGoods(List<Goods> goods) {
-		this.goods = goods;
+	public void setGoodss(List<Goods> goods) {
+		this.goodss = goods;
 	}
 
 
