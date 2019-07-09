@@ -1,9 +1,11 @@
 package com.ringo.ssh.dao;
 
+import java.util.List;
+
 import com.ringo.ssh.entity.User;
 
 /**
- * User抽象持久层层接口:
+ * 抽象持久层层接口:
  * 		
  * @author 李卓岚
  *
@@ -15,4 +17,9 @@ public interface IUserDao {
 	//查询
 	public User getPersonByEmail(String email);
 	public User getPersonByUserId(int userId);
+	//用户名模糊查询
+	public List<User> getUserByUserName(String userName);
+	public List<User> listUser(int offset,int pageSize);
+	//返回用户总数
+	public int countUser();
 }

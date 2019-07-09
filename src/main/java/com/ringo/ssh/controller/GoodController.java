@@ -186,4 +186,5 @@ public class GoodController {
             System.out.println("删除文件出错");
         }
 	}
+	
 }
