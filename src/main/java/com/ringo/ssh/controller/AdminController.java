@@ -2,6 +2,7 @@ package com.ringo.ssh.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ringo.ssh.entity.Category;
+import com.ringo.ssh.entity.Goods;
 import com.ringo.ssh.entity.User;
 import com.ringo.ssh.exception.MyException;
 import com.ringo.ssh.service.IAdminService;
@@ -23,7 +26,7 @@ import com.ringo.util.CreatRandCode;
 
 import net.sf.json.JSONObject;
 
-//@Controller
+@Controller
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -40,15 +43,6 @@ public class AdminController {
 	private IOrderService orderService;
 	
 	
-	/**
-	 * 主页
-	 * @return
-	 */
-	@RequestMapping(value = "/adminIndex",method = RequestMethod.GET)
-	public String indexPage() {
-
-		return "admin/index";
-	}
 	
 	/**
 	 * 管理员登陆后台
@@ -197,20 +191,70 @@ public class AdminController {
 	
 	/**
 	 * 后台管理员添加商品
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/addGoods", method = RequestMethod.POST)
-	private void addGoods(HttpServletRequest request, HttpServletResponse response) {
-		String goodsName=(String)request.getParameter("goodName");
+	private void addGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String goodsName=(String)request.getParameter("goodsName");
+		String goodsInfo=(String)request.getParameter("goodsInfo");
+		String goodsImg=(String)request.getParameter("goodsImg");
+		Double goodsPrice=Double.valueOf((String)request.getParameter("goodsPrice"));
+		Double goodsRealPrice=Double.valueOf((String)request.getParameter("goodsRealPrice"));
+		int categoryId=Integer.parseInt((String)request.getParameter("categoryId"));
+		Category c=new Category();
+		c.setCategoryId(categoryId);
+		Date goodsDate=new Date();
+		Goods goods=new Goods();
+		goods.setCategory(c);
+		goods.setGoodsDate(goodsDate);
+		goods.setGoodsImg(goodsImg);
+		goods.setGoodsInfo(goodsInfo);
+		goods.setGoodsName(goodsName);
+		goods.setGoodsPrice(goodsPrice);
+		goods.setGoodsRealPrice(goodsRealPrice);
+		goods.setGoodsState(1);
+		goodsService.saveGoods(goods);
+		renderData(response, "添加成功");
+		
 	}
 	
 	/**
 	 * 后台管理员删除商品
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/deleteGoods", method = RequestMethod.POST)
-	private void deleteGoods(HttpServletRequest request, HttpServletResponse response) {
-	
+	private void deleteGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int goodsId=Integer.parseInt((String)request.getParameter("goodsId"));
+		goodsService.deleteGoods(goodsId);
+		renderData(response, "删除成功");
 	}
 	
+	/**
+	 * 后台管理员修改商品信息
+	 * @throws IOException 
+	 */
+	
+	@RequestMapping(value = "/updateGoods", method = RequestMethod.POST)
+	private void updateGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int goodsId=Integer.parseInt((String)request.getParameter("goodsId"));
+		String goodsName=(String)request.getParameter("goodsName");
+		String goodsInfo=(String)request.getParameter("goodsInfo");
+		String goodsImg=(String)request.getParameter("goodsImg");
+		Double goodsPrice=Double.valueOf((String)request.getParameter("goodsPrice"));
+		Double goodsRealPrice=Double.valueOf((String)request.getParameter("goodsRealPrice"));
+		int categoryId=Integer.parseInt((String)request.getParameter("categoryId"));
+		Goods oldGoods=goodsService.getGoodsByGoodId(goodsId);
+		Category c=new Category();
+		c.setCategoryId(categoryId);
+		oldGoods.setCategory(c);
+		oldGoods.setGoodsImg(goodsImg);
+		oldGoods.setGoodsInfo(goodsInfo);
+		oldGoods.setGoodsName(goodsName);
+		oldGoods.setGoodsPrice(goodsPrice);
+		oldGoods.setGoodsRealPrice(goodsRealPrice);
+		goodsService.updateGoods(oldGoods);
+		renderData(response, "更新成功");
+	}
 	/**
 	 * 后台管理员模糊查询商品
 	 */
@@ -321,5 +365,29 @@ public class AdminController {
 	@RequestMapping(value = "/searchCategory", method = RequestMethod.POST)
 	private void searchCategory(HttpServletRequest request, HttpServletResponse response) {
 		
+	}
+	
+	/**
+	 * 返回后台管理页面
+	 */
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	private String getAdminIndex(HttpServletRequest request, HttpServletResponse response) {
+		return "adminIndex";
+	}
+	
+	/**
+	 * 返回后台添加商品页面
+	 */
+	@RequestMapping(value = "/addGoods", method = RequestMethod.GET)
+	private String getAddGoods(HttpServletRequest request, HttpServletResponse response) {
+		return "goodsAdd";
+	}
+	
+	/**
+	 * 返回商品信息修改页面
+	 */
+	@RequestMapping(value = "/goodsEdit", method = RequestMethod.GET)
+	private String getGoodsEditPage(HttpServletRequest request, HttpServletResponse response) {
+		return "goodsEdit";
 	}
 }

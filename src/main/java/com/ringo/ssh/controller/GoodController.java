@@ -3,6 +3,7 @@ package com.ringo.ssh.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ringo.ssh.entity.Category;
 import com.ringo.ssh.entity.Goods;
 import com.ringo.ssh.entity.Reviews_User;
+import com.ringo.ssh.service.ICategoryService;
 import com.ringo.ssh.service.IGoodsService;
 import com.ringo.util.FileUpload;
+import com.ringo.util.JsonDateValueProcessor;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
@@ -28,6 +31,9 @@ public class GoodController {
 	
 	@Resource(name = "GoodsService")
 	private IGoodsService goodsService;
+	
+	@Resource(name = "CategoryService")
+	private ICategoryService categoryService;
 	
 	/**
 	 * 通过PrintWriter将响应数据写入response，ajax可以接受到这个数据
@@ -58,6 +64,7 @@ public class GoodController {
 		List<Goods> goods=goodsService.getGoodsByName("");
 		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
 		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
 		jsonConfig.setExcludes(new String[] { "goods","shopCarList","orderDetails"}); // 此处是亮点，只要将所需忽略字段加到数组中即可
 		JSONArray jsonArray2 = JSONArray.fromObject(goods,jsonConfig);//将集合转换为json格式
 		renderData(response, jsonArray2.toString());
@@ -119,7 +126,6 @@ public class GoodController {
 		jsonConfig.setIgnoreDefaultExcludes(false); // 设置默认忽略
 		jsonConfig.setExcludes(new String[] { "goods","shopCarList","orderDetails"}); // 此处是亮点，只要将所需忽略字段加到数组中即可
 		JSONArray goods = JSONArray.fromObject(g, jsonConfig);// 将集合转换为json格式
-		
 		renderData(response, goods.toString());
 		
 	}
@@ -185,6 +191,24 @@ public class GoodController {
         } else {
             System.out.println("删除文件出错");
         }
+	}
+	
+	/**
+	 * 
+	 * 用于获得所有的商品类别
+	 * 
+	 * @param HttpServletRequest  req
+	 * @param HttpServletResponse response
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/getAllCategory", method = RequestMethod.GET)
+	public void getAllCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		List<Category> cates=categoryService.getAllCategory();
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.setExcludes(new String[]{"category","shopCarList","orderDetails","goods"});  //此处是亮点，只要将所需忽略字段加到数组中即可
+		JSONArray jsonArray2 = JSONArray.fromObject(cates,jsonConfig);//将集合转换为json格式
+		renderData(response, jsonArray2.toString());
 	}
 	
 }
