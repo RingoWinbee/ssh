@@ -6,7 +6,7 @@
 	<groupId>com.ringo</groupId>
 	<artifactId>ssh</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>ssh</name>
 	<url>http://maven.apache.org</url>
@@ -16,7 +16,7 @@
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
 	</properties>
-	
+
 	<!-- spring+junit单元测试 begin -->
 	<dependencies>
 		<dependency>
@@ -31,7 +31,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- spring+junit单元测试 end -->
-		
+
 		<!-- springframework 4 dependencies begin -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -118,5 +118,42 @@
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+
+		<!-- mail组件 start -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- mail组件 end -->
+
+		<!--文件上传依赖 start -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!--文件上传依赖 end -->
+
+		<!-- Json格式依赖 start -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		<!-- Json格式依赖 end -->
+
+
 	</dependencies>
 </project>
